@@ -48,7 +48,6 @@ def decrypt_login_details(master_password) -> list:
 
 
 def decrypt_message(encrypted_message: bytes, salt: bytes, master_password: str) -> str:
-    ##TODO WHY ARE THE KEYS DIFFERNET WHEN ENCODING AND DECODING?!?!?!?
     key = derive_key_from_master_password(master_password, salt) 
     f = Fernet(key)
     try:
