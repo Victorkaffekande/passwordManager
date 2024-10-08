@@ -1,4 +1,4 @@
-﻿from flask import Flask, redirect, render_template, request, session, url_for
+﻿from flask import Flask, redirect, render_template, request, session, url_for, make_response
 from cryptoFreak import *
 from enteties.login import Login
 
@@ -54,11 +54,12 @@ def vault_post():
             error["missingEmail"] = "missing email"
         if not newLogin.website:
             error["missingWebsite"] = "missing website"
-        return render_template("newLogin.html", error=error, newLogin=newLogin)
+        res = make_response(render_template("newLogin.html", error=error, newLogin=newLogin))
+        res.headers['HX-Retarget'] = "#contentPane"
+        return res
 
-    encrypt_save_login_detail(newLogin, masterPassword)
-    return render_template("newLogin.html", error=None, newLogin=None)
-
+    newId = encrypt_save_login_detail(newLogin, masterPassword)
+    return redirect("/vault?id={}".format(newId))
 
 
 if __name__ == '__main__':

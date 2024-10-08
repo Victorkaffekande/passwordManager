@@ -40,8 +40,10 @@ def save_login(website, email, encrypted_password, salt):
     cursor = connection.cursor()
     cursor.execute("INSERT INTO logins (website, email, password, salt) VALUES (?, ?, ?, ?)",
                    (website, email, encrypted_password, salt))
+    newestId = cursor.lastrowid
     connection.commit()
     connection.close()
+    return newestId
 
 
 def get_encrypted_logins() -> list[EncryptedLogin]:

@@ -2,11 +2,13 @@
 <html lang="">
     <head>
         <title>Password manager deluxe</title>
-        <script src="/static/js/htmx-1.8.0.js"></script>
-        <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">    
+         <script src="/static/js/htmx-1.8.0.js"></script> 
+        <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+
     </head>
     <body hx-boost="true" class="bg-neutral-950 text-gray-300">
-        <main class="container mx-auto" id="main">
+
+    <main class="container mx-auto" id="main">
             {% block content %}{% endblock %}
         </main>
     </body>

@@ -4,14 +4,19 @@
     <div class="grid grid-cols-[20%_80%] gap-5">
         <div class="p-3 border-neutral-700 border rounded-xl">
             <button class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center
-             justify-center whitespace-nowrap rounded-md bg-black hover:bg-black/90  px-4 py-2 
+             justify-center whitespace-nowrap rounded-md bg-neutral-900 hover:bg-neutral-700  px-4 py-2 
               text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                     type="button"
+                    hx-get="/vault"
+                    hx-target="main"
+                    hx-swap="outerHTML"
+                    hx-push-url="true"
             >
                 + Login +
             </button>
 
             {% include 'rows.html' %}
+            
         </div>
         <nav class="border border-neutral-700 rounded p-4" id="contentPane">
             {% if login %}

@@ -1,6 +1,50 @@
-﻿<div class="text-red-600">
-    {{ login.id }}
-    {{ login.website }}
-    {{ login.email }}
-    {{ login.password }}
+﻿<div>
+    <script src="/static/js/copy.js"></script>
+        <label for="website" class="grid grid-rows-1 mb-2 w-full">Website
+            
+            <input type="text"
+                   class="border-input border-neutral-700 bg-neutral-800 h-10 border px-3 py-2 rounded"
+                   id='website'
+                   name="website"
+                   placeholder="website"
+                   value="{{ login.website }}"
+                   disabled
+            />
+           
+        </label>
+    <div class="grid grid-cols-2 gap-5">
+        <label for="email" class="block mb-2">Email
+            <input type="text"
+                   class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+                   id="email"
+                   name="email"
+                   placeholder="email"
+                   value="{{ login.email }}"
+                   disabled
+            />
+        </label>
+        <label for="password" class="block mb-2 ">Password
+            <input type="password"
+                   class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+                   id="password"
+                   name="password"
+                   placeholder="Password"
+                   value="{{ login.password }}"
+                   disabled
+            />
+        </label>
+        <button class="bg-neutral-900 hover:bg-neutral-700 rounded p-3 "
+                onclick="copyToClipboard('email')">
+            Copy email
+        </button>
+        <button class="bg-neutral-900 hover:bg-neutral-700  rounded p-3 "
+                onclick="copyToClipboard('password')">
+            Copy password
+        </button>
+    </div>
 </div>
+

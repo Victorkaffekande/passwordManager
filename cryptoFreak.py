@@ -35,7 +35,7 @@ def encrypt_save_login_detail(login: Login, master_password: str):
     salt = os.urandom(16)
     key = derive_key_from_master_password(master_password, salt)
     f = Fernet(key)
-    save_login(f.encrypt(login.website.encode()), f.encrypt(login.email.encode()), f.encrypt(login.password.encode()),
+    return save_login(f.encrypt(login.website.encode()), f.encrypt(login.email.encode()), f.encrypt(login.password.encode()),
                salt)
 
 
