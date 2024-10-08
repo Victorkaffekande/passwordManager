@@ -1,0 +1,50 @@
+﻿<form action="/vault"
+      method="post"
+      hx-swap="innerHTML"
+      hx-target="#contentPane">
+    <label for="website" class="block mb-2  ">Website
+        <input type="text"
+               class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+               id="website"
+               name="website"
+               placeholder="website"
+               value="{{ newLogin.website or '' }}"
+        />
+        <span class="text-rose-600">{{ error["missingWebsite"] }}</span>
+    </label>
+    <div class="grid grid-cols-2 gap-5">
+        <label for="email" class="block mb-2">Email
+            <input type="text"
+                   class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+                   id="email"
+                   name="email"
+                   placeholder="email"
+                   value="{{ newLogin.email or '' }}"
+            />
+            <span class="text-rose-600">{{ error["missingEmail"] }}</span>
+        </label>
+        <label for="password" class="block mb-2 ">Password
+            <input type="text"
+                   class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+                   id="password"
+                   name="password"
+                   placeholder="Password"
+                   value="{{ newLogin.password or '' }}"
+            />
+            <span class="text-rose-600">{{ error["missingPassword"] }}</span>
+        </label>
+
+    </div>
+    <button class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center
+     whitespace-nowrap rounded-md bg-neutral-900 hover:bg-neutral-700 px-4 py-2  text-white transition-colors 
+     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            type="submit" >
+        Add Login
+    </button>
+</form>

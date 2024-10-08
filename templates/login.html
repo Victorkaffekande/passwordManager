@@ -1,0 +1,25 @@
+﻿{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="flex h-screen flex-col items-center justify-center">
+        <form class="bg-white rounded p-4 flex-col space-y-3" action="/login" method="post">
+            <h1 class="text-4xl text-black font-semibold">
+                Master password
+            </h1>
+            <input type="password"
+                   class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 "
+                   id="masterPassword"
+                   name="masterPassword"
+                   placeholder="Password"
+                   />
+            <span class="text-sm text-rose-600">{{ error }}</span>
+
+            <button class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                    type="submit">
+                Unlock
+            </button>
+        </form>
+    </div>
+
+
+{% endblock %}

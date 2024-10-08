@@ -17,11 +17,13 @@ def main():
             website = input("Website: ")
             email = input("Username: ")
             password = input("Password: ")
-            encrypt_save_login_detail(website, email, password, masterPass)
+            login = Login(website, email, password)
+            encrypt_save_login_detail(login, masterPass)
         elif choice == "2":
             for l in decrypt_login_details(masterPass):
-                print(l)
+                print(l.id)
         elif choice == "3":
+            print("quitting")
             break
 
 
