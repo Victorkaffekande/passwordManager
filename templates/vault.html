@@ -18,12 +18,12 @@
             {% include 'rows.html' %}
             
         </div>
-        <nav class="border border-neutral-700 rounded p-4" id="contentPane">
+        <div class="border border-neutral-700 rounded-md p-4" id="contentPane">
             {% if login %}
                 {% include "displayLogin.html" %}
             {% else %}
                 {% include "newLogin.html" %}
             {% endif %}
-        </nav>
+        </div>
     </div>
 {% endblock %}

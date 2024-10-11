@@ -1,6 +1,10 @@
 ﻿{% for website in websites %}
-    <button hx-get="/vault?id={{ website.id }}" hx-target="#contentPane" hx-select="#contentPane" hx-swap="outerHTML"
+    <button hx-get="/vault?id={{ website.id }}"
+            hx-target="#contentPane"
+            hx-select="#contentPane"
+            hx-swap="outerHTML"
             hx-push-url="true"
+            id="website_{{ website.id }}"
             class="bg-transparent hover:bg-neutral-700 p-2 rounded flex w-full">
         {{ website.website }}
         {{ website.id }}

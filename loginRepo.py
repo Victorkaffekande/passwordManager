@@ -59,6 +59,15 @@ def get_encrypted_logins() -> list[EncryptedLogin]:
     return list
 
 
+def delete_login(id):
+    with get_connection() as connection:
+        cursor = connection.cursor()
+        query = "DELETE FROM logins WHERE id = ?"
+        cursor.execute(query, (id,))
+        connection.commit()
+   
+
+
 def get_encrypted_login(id) -> EncryptedLogin:
     connection = get_connection()
     cursor = connection.cursor()

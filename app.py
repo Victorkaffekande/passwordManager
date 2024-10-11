@@ -62,5 +62,18 @@ def vault_post():
     return redirect("/vault?id={}".format(newId))
 
 
+@app.route('/vault', methods=['DELETE'])
+def vault_delete():
+    if 'masterPassword' not in session:
+        return redirect("/login")
+    id = request.args.get('id', default=None, type=int)
+    masterPassword = session.get("masterPassword")
+    delete_login(id)
+    print(id)
+    websites = get_decrypted_websites(masterPassword)
+
+    return render_template('vault.html', websites=websites, error=None, newLogin=None, login=None)
+
+
 if __name__ == '__main__':
     app.run()
