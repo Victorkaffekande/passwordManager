@@ -30,7 +30,6 @@ def login_put():
     newPassword = request.form['newPassword']
     if not newPassword:
         return render_template("resetLogin.html", newLoginError="Cannot be empty")
-    create_database()
     set_master_password(newPassword)
     session["masterPassword"] = newPassword
     res = make_response("", 200)

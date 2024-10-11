@@ -11,6 +11,7 @@ ph = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=4, hash_len=32)
 
 
 def set_master_password(master_password):
+    create_database()
     hashedPass = ph.hash(master_password)
     save_hashed_master_password(hashedPass)
 
@@ -31,7 +32,7 @@ def derive_key_from_master_password(password: str, salt: bytes) -> bytes:
 
 
 def encrypt_save_login_detail(login: Login, master_password: str):
-    # Generate a random salt for each message
+    # Generate a random salt for each login
     salt = os.urandom(16)
     key = derive_key_from_master_password(master_password, salt)
     f = Fernet(key)
