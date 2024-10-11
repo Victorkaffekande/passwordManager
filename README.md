@@ -62,6 +62,8 @@ A nice expantion to this app would be a timeout so the user has to reauthenticat
 ![billede](https://github.com/user-attachments/assets/b3020d77-f8a9-4897-966c-f87e5fa1d143)
 
 #pitfalls 
+The password generation method found in static/js/util.js will create a random password from the given charset which is currently set to the standard english keyboard and some special characters. This means anyone with access to the app know what characters to limit their brute force attacks to. This list could be extended to make generated passwords more complex.
+
 The user interface is a website which feels a little wrong for a local program a desktop app would be expected. I did this because i wanted to try out some simple html templating and Htmx
 
 
