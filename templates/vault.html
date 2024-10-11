@@ -1,6 +1,17 @@
 ﻿{% extends 'layout.html' %}
 
 {% block content %}
+    <div class="flex justify-end mb-2 ">
+        <button hx-get="/logout"
+                hx-push-url="true"
+                hx-target="#main"
+                hx-swap="outerHTML"
+                class="bg-red-900 hover:bg-red-700 p-3 rounded">
+            <i class="fa fa-sign-out"></i>
+            Logout
+        </button>
+    </div>
+    
     <div class="grid grid-cols-[20%_80%] gap-5">
         <div class="p-3 border-neutral-700 border rounded-xl">
             <button class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center
@@ -16,7 +27,7 @@
             </button>
 
             {% include 'rows.html' %}
-            
+
         </div>
         <div class="border border-neutral-700 rounded-md p-4" id="contentPane">
             {% if login %}

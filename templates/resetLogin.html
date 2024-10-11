@@ -1,0 +1,26 @@
+﻿<form class="border border-neutral-700 rounded p-4 flex-col space-y-3"
+      hx-put="/login"
+      hx-confirm="This will reset your password and wipe the database"
+      hx-swap="outerHTML">
+    <h1 class="text-xl font-semibold">
+        Reset password and database
+    </h1>
+    <input type="text"
+           class="border-input border-neutral-700 bg-neutral-800 ring-offset-background placeholder:text-muted-foreground 
+           focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2  focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-offset-2"
+           id="newPassword"
+           name="newPassword"
+           placeholder="New Password"
+    />
+    <span class="text-sm text-rose-600">{{ newLoginError }}</span>
+
+    <button class="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center
+     whitespace-nowrap rounded-md bg-neutral-900 hover:bg-neutral-700 px-4 py-2  text-white transition-colors 
+     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            type="submit"
+
+    >
+        Reset
+    </button>
+</form>

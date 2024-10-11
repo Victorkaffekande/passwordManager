@@ -1,5 +1,5 @@
-﻿from flask import Flask, redirect, render_template, request, session, url_for, make_response
-from cryptoFreak import *
+﻿from flask import Flask, redirect, render_template, request, session, url_for, make_response, abort
+from crypto import *
 from enteties.login import Login
 
 app = Flask(__name__)
@@ -20,9 +20,22 @@ def login_get():
 def login_post():
     masterPassword = request.form['masterPassword']
     if not verify_master_password(masterPassword):
-        return render_template("login.html", error="Invalid password")
+        return render_template("login.html", loginError="Invalid password")
     session["masterPassword"] = masterPassword
     return redirect("/vault")
+
+
+@app.route('/login', methods=['PUT'])
+def login_put():
+    newPassword = request.form['newPassword']
+    if not newPassword:
+        return render_template("resetLogin.html", newLoginError="Cannot be empty")
+    create_database()
+    set_master_password(newPassword)
+    session["masterPassword"] = newPassword
+    res = make_response("", 200)
+    res.headers['HX-Redirect'] = "/vault"
+    return res
 
 
 @app.route('/vault', methods=['GET'])
@@ -33,8 +46,10 @@ def vault():
     masterPassword = session.get("masterPassword")
     websites = get_decrypted_websites(masterPassword)
     if id:
-        login = get_decrypted_login(id, masterPassword)
-        return render_template("vault.html", websites=websites, error=None, newLogin=None, login=login)
+        encryptedLogin = get_encrypted_login(id)
+        if isinstance(encryptedLogin, EncryptedLogin):
+            login = decrypt_login(encryptedLogin, masterPassword)
+            return render_template("vault.html", websites=websites, error=None, newLogin=None, login=login)
 
     return render_template('vault.html', websites=websites, error=None, newLogin=None, login=None)
 
@@ -69,10 +84,15 @@ def vault_delete():
     id = request.args.get('id', default=None, type=int)
     masterPassword = session.get("masterPassword")
     delete_login(id)
-    print(id)
     websites = get_decrypted_websites(masterPassword)
 
     return render_template('vault.html', websites=websites, error=None, newLogin=None, login=None)
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect("/login")
 
 
 if __name__ == '__main__':

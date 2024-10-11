@@ -7,7 +7,7 @@ from enteties.login import Login
 from enteties.websiteDTO import WebsiteDTO
 from loginRepo import *
 
-ph = PasswordHasher(time_cost=4, memory_cost=65536, parallelism=2, hash_len=32)
+ph = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=4, hash_len=32)
 
 
 def set_master_password(master_password):
@@ -24,7 +24,7 @@ def verify_master_password(master_password):
 
 
 def derive_key_from_master_password(password: str, salt: bytes) -> bytes:
-    key = hash_password_raw(password.encode(), salt, time_cost=4, memory_cost=65536, parallelism=2, hash_len=32,
+    key = hash_password_raw(password.encode(), salt, time_cost=3, memory_cost=65536, parallelism=4, hash_len=32,
                             type=Type.I)
     key64 = base64.urlsafe_b64encode(key)
     return key64
@@ -35,24 +35,12 @@ def encrypt_save_login_detail(login: Login, master_password: str):
     salt = os.urandom(16)
     key = derive_key_from_master_password(master_password, salt)
     f = Fernet(key)
-    return save_login(f.encrypt(login.website.encode()), f.encrypt(login.email.encode()), f.encrypt(login.password.encode()),
-               salt)
+    return save_login(f.encrypt(login.website.encode()), f.encrypt(login.email.encode()),
+                      f.encrypt(login.password.encode()),
+                      salt)
 
 
-def decrypt_login_details(master_password) -> list:
-    decryptedLogins = []
-
-    for encryptedLogin in get_encrypted_logins():
-        key = derive_key_from_master_password(master_password, encryptedLogin.salt)
-        login = Login(encryptedLogin.id, decrypt_message(encryptedLogin.website, key),
-                      decrypt_message(encryptedLogin.email, key), decrypt_message(encryptedLogin.password, key))
-
-        decryptedLogins.append(login)
-    return decryptedLogins
-
-
-def get_decrypted_login(id, master_password):
-    encryptedLogin = get_encrypted_login(id)
+def decrypt_login(encryptedLogin, master_password):
     key = derive_key_from_master_password(master_password, encryptedLogin.salt)
     return Login(encryptedLogin.id,
                  decrypt_message(encryptedLogin.website, key),
