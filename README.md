@@ -37,20 +37,20 @@ A login can be selected in the left panel to decrypt and show it on the right si
 # Security
 This app uses symmetric encryption, meaning the same key is use to encrypt and decrypt data.
 ## master password
-When the master password is set it is salted and hashed with argon2 to make sure it is difficult to guess. 
-Before saving saving the hashed master password, the database it cleared of all old data, since it would be useless to keep data we cannot decrypt anyway.
+When the master password is set it is salted and hashed with argon2. 
+Before saving the hashed master password, the database it cleared of all old data, since it would be useless to keep data we cannot decrypt anyway.
 
 ## Saving logins
-First all the login details are encrypted with an encryption key derrived from the master password and a random salt.
-The encrypted login is then saved to the database with its own salt. We need to save the salt so we can generate the same key when it is time to decrypt the data again.
+First the raw login details are encrypted with an encryption key derrived from the master password and a random salt.
+The encrypted login is then saved to the database together with the salt. We need to save the salt so we can generate the same key when it is time to decrypt the data again.
 
 ## Retrieving logins
 In the left side of the app all the websites are displayed by getting them out of the database and decrypting only the name of the website.
-When the user clicks on a website, the full login will be retrieved from the database and be decrypted by regenerating the correct key using the saved salt and master password
+When the user clicks on a website, the full login details will be retrieved from the database and be decrypted by regenerating the correct key using the saved salt and master password
 
 # Considerations
 Since this application is local i have no consideration for transfering keys between frontend and backend. 
-Instead i have made sure that even if someone gets physical acces to the host pc and database file, it will all be useless without the master password.
+Instead i have made sure that even if someone gets physical acces to the host pc and database file, it will all be useless without the master password, since all data is encrypted.
 
 A nice expantion to this app would be a timeout so the user has to reauthenticate after 15min, and cannot accidently leave their pc open and vulnerable at the public library.
 
