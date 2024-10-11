@@ -1,4 +1,6 @@
-﻿import sqlite3
+﻿from __future__ import annotations
+
+import sqlite3
 import enteties
 from enteties.encrypedWebsite import EncryptedWebsite
 from enteties.encryptedLogin import EncryptedLogin
